@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyOnePrefab;
     public GameObject cloudPrefab;
-    public GameObject coinPrefab;
+    public GameObject CoinPrefab;
     public int score;
-    public TextMeshProUGUI scoreText;
+    public int lives;
     public int cloudsMove;
+    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
 
     // Start is called before the first frame update
@@ -25,14 +26,15 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("SpawnCoin", 1.0f, 15f);
         cloudsMove = 1;
         score = 0;
-        Debug.Log(score);
+        lives = 3;
+        livesText.text = "lives: " + lives;
         scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
     void Update()
     {
-  
+
     }
 
     void SpawnEnemyOne()
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     void CreateSky()
     {
-        for (int i = 0; i < 50; i++) 
+        for (int i = 0; i < 50; i++)
         {
             Instantiate(cloudPrefab, new Vector3(Random.Range(-11f, 11f), Random.Range(-7.5f, 7.5f), 0), Quaternion.identity);
         }
@@ -59,9 +61,12 @@ public class GameManager : MonoBehaviour
         score = score + scoreToAdd;
         scoreText.text = "Score: " + score;
     }
-
+    public void LoseLife(int loseLife)
+    {
+        lives = lives + loseLife;
+        livesText.text = "lives: " + lives;
+    }
     void SpawnCoin()
     {
-        Instantiate(coinPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity).GetComponent<Coin>();
+        Instantiate(CoinPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity).GetComponent<Coin>();
     }
-}
