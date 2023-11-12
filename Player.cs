@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
         lives--;
         //lives -= 1;
         //lives = lives -1;
+        GameObject.Find("GameManager").GetComponent<GameManager>().LoseLife(-1);
         if (lives <= 0) 
         { 
             //Game Over
